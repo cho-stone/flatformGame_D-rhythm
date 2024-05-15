@@ -37,7 +37,7 @@
 * 공중에서 Shift + 오른쪽/왼쪽 방향키를 입력하면 캐릭터가 대쉬합니다.
 
 ![DR_Damaged](https://github.com/cho-stone/flatformGame_D-rhythm/assets/74195857/ba9017dc-529f-4b34-8073-c656669df543)
-* 캐릭터가 빨간 줄에 닿으면 데미지를 입습니다.
+* 캐릭터가 빨간 줄이나 적에게 닿으면 데미지를 입습니다.
 * 캐릭터가 3번 데미지를 입으면 게임 오버가 됩니다.
 
 ![DR_WallJump](https://github.com/cho-stone/flatformGame_D-rhythm/assets/74195857/bccf67ab-d7d4-417a-912c-8a0ff209b899)
