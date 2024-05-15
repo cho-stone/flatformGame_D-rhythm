@@ -43,4 +43,8 @@
 ![DR_WallJump](https://github.com/cho-stone/flatformGame_D-rhythm/assets/74195857/bccf67ab-d7d4-417a-912c-8a0ff209b899)
 * 캐릭터가 공중에 있고 벽에 닿으면 벽을 짚습니다.  
   그 상대로 오른쪽/왼쪽 방향키를 입력하면 벽점프를 합니다.
+
+![DR_Enemy](https://github.com/cho-stone/flatformGame_D-rhythm/assets/74195857/44aae07d-2068-4a35-b534-1df2d916d19e)
+* 캐릭터가 적에게 일정 거리 이상 다가가면 락 온이 됩니다.  
+  락 온 상태에서 Z 키를 누르면 적에게 다가간 후 파괴합니다.
 <br>
