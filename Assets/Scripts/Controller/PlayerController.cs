@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
             doDashAction = false;
         }
 
-        if(rigid.velocity.x == 0)
+        if (rigid.velocity.x == 0)
         {
             animator.SetBool("Move", false);
         }
@@ -335,6 +335,8 @@ public class PlayerController : MonoBehaviour
         if(rigid.velocity.y < 0)
         {
             animator.SetBool("Land", true);
+            animator.SetBool("Jump", false);
+
             //아래 방향 레이를 쏴서 히트 되는지 체크 - 바닥에 닿았을 때
             RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 2, LayerMask.GetMask("Platform"));
 
@@ -351,9 +353,9 @@ public class PlayerController : MonoBehaviour
                     isWall = false; //땅에 닿으면 벽에 없는 상태
                     wallCount = 0; //
 
+                    animator.SetBool("Move", false);
                     animator.SetBool("Jump", false);
                     animator.SetBool("Land", false);
-                    animator.SetBool("Move", false);
                 }            
             }
         }

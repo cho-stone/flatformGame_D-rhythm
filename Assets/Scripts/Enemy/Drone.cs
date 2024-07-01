@@ -1,14 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Drone : Monster
 {
     [SerializeField] LayerMask layer;
     private Vector2 dir;
-    private BoxCollider2D droneBox;
-
     void Start()
     {
         SoundMana = SoundManager.instance;
@@ -17,7 +14,7 @@ public class Drone : Monster
         Rigid = GetComponent<Rigidbody2D>();
         SpriteFlip = GetComponent<SpriteRenderer>();
         Anima = GetComponent<Animator>();
-        droneBox = GetComponent<BoxCollider2D>();
+        BoxCol = GetComponent<BoxCollider2D>();
     }
 
     private void FixedUpdate()
@@ -39,11 +36,6 @@ public class Drone : Monster
         
     }
 
-    protected override void Die()
-    {
-        StartCoroutine(DieCo()); 
-    }
-
     protected override void Move()
     {
         dir = PlayerCol.transform.position - transform.position;
@@ -63,6 +55,9 @@ public class Drone : Monster
             Rigid.velocity = Vector2.zero;
         }
         
+        //플레이어를 바라보게 하기
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     protected override void Anim()
@@ -70,15 +65,15 @@ public class Drone : Monster
         //캐릭터 뒤집기
         if (dir.x > 0)
         {
-            SpriteFlip.flipX = false;
+            SpriteFlip.flipY = false;
         }
         else if (dir.x < 0)
         {
-            SpriteFlip.flipX = true;
+            SpriteFlip.flipY = true;
         }
 
         //애니메이션 - 이동
-        if (SpriteFlip.flipX)
+        if (SpriteFlip.flipY)
         {
             if (Rigid.velocity.x > 0)
             {
@@ -110,15 +105,5 @@ public class Drone : Monster
                 Anima.SetBool("Back", false);
             }
         }    
-    }
-
-    IEnumerator DieCo()
-    {
-        droneBox.enabled = false;
-        Anima.SetTrigger("Death");
-        SoundMana.playSFX("enemyDie");
-        yield return new WaitForSeconds(0.3f);
-        this.gameObject.SetActive(false);
-        yield return null;
     }
 }

@@ -12,6 +12,7 @@ public abstract class Monster : MonoBehaviour
     private SpriteRenderer spriteFlip;
     private Animator anim;
     private SoundManager soundManager;
+    private BoxCollider2D boxCollider2D;
 
     public int MonsterHealth { get => monsterHealth; set => monsterHealth = value; }
     public Collider2D PlayerCol { get => playerCol; set => playerCol = value; }
@@ -20,10 +21,10 @@ public abstract class Monster : MonoBehaviour
     public SpriteRenderer SpriteFlip { get => spriteFlip; set => spriteFlip = value; }
     public Animator Anima { get => anim; set => anim = value; }
     public SoundManager SoundMana { get => soundManager; set => soundManager = value; }
+    public BoxCollider2D BoxCol { get => boxCollider2D; set => boxCollider2D = value; }
 
-    protected abstract void Attack();   
+    protected abstract void Attack();
     protected abstract void Move();
-    protected abstract void Die();
     protected abstract void Anim();
 
     protected void OnDamaged()
@@ -34,11 +35,26 @@ public abstract class Monster : MonoBehaviour
             Die();
     }
 
+    protected void Die()
+    {
+        StartCoroutine(DieCo());
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer == 9 || collision.gameObject.layer == 8)
         {
             OnDamaged();
         }  
+    }
+
+    IEnumerator DieCo()
+    {
+        BoxCol.enabled = false;
+        Anima.SetTrigger("Death");
+        SoundMana.playSFX("enemyDie");
+        yield return new WaitForSeconds(0.3f);
+        this.gameObject.SetActive(false);
+        yield return null;
     }
 }
