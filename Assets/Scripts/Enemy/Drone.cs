@@ -39,6 +39,7 @@ public class Drone : Monster
     protected override void Move()
     {
         dir = PlayerCol.transform.position - transform.position;
+
         RaycastHit2D moveRay = Physics2D.Raycast(transform.position, dir, Radius, layer);
 
         //이동 경로 설정
@@ -54,10 +55,10 @@ public class Drone : Monster
         {
             Rigid.velocity = Vector2.zero;
         }
-        
+
         //플레이어를 바라보게 하기
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     protected override void Anim()

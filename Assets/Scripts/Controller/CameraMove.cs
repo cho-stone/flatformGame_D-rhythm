@@ -56,4 +56,10 @@ public class CameraMove : MonoBehaviour
         }
         transform.position = originPos;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(center, mapSize * 2);
+    }
 }

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-//using UnityEditor.Search;
 using UnityEngine;
 
 public class LockOnManager : MonoBehaviour
@@ -43,7 +42,7 @@ public class LockOnManager : MonoBehaviour
             UpdateObject();
             IsWall();
             LockOn();
-        }     
+        }
     }
 
     //가장 가까운 오브젝트 갱신, 이전 오브젝트 갱신 후 비교
@@ -51,11 +50,11 @@ public class LockOnManager : MonoBehaviour
     {
         closeObject = playerCollider.getCloseObject();
 
-        if(preCloseObject == null)
+        if (preCloseObject == null)
         {
             preCloseObject = closeObject;
         }
-        else if(closeObject == null)
+        else if (closeObject == null)
         {
             return;
         }
@@ -70,7 +69,7 @@ public class LockOnManager : MonoBehaviour
     //사이에 벽이 없어야 락온 가능
     private void IsWall()
     {
-        if(closeObject == null)
+        if (closeObject == null)
         {
             lockOnState = LockOnState.Off;
             return;
@@ -86,7 +85,7 @@ public class LockOnManager : MonoBehaviour
         }
         else
         {
-            if(lockOnState != LockOnState.Show && lockOnState != LockOnState.EnemyChange)
+            if (lockOnState != LockOnState.Show && lockOnState != LockOnState.EnemyChange)
                 lockOnState = LockOnState.On;
         }
     }
@@ -130,9 +129,7 @@ public class LockOnManager : MonoBehaviour
 
     public bool IsLockOn()
     {
-        if(lockOnState != LockOnState.Show)
-            return false;
-        return true;
+        return lockOnState == LockOnState.Show;
     }
 
     public Collider2D GetLockOnObj()

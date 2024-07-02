@@ -30,10 +30,20 @@ public class PlayerCollider : MonoBehaviour
         //플레이어에 특정 layer을 가진 오브젝트가 접근하면 그 오브젝트 가져오기
         objects = Physics2D.OverlapCircleAll(transform.position, radius, layer);
 
-        CalcCloseEnemy(objects);
+        // BoxCollider2D 만 필터링
+        List<Collider2D> boxColliders = new List<Collider2D>();
+        foreach (var collider in objects)
+        {
+            if (collider is BoxCollider2D)
+            {
+                boxColliders.Add(collider);
+            }
+        }
+
+        CalcCloseObject(boxColliders.ToArray());
     }
 
-    private void CalcCloseEnemy(Collider2D[] objects)
+    private void CalcCloseObject(Collider2D[] objects)
     {
         if (objects.Length == 1)
         {
@@ -66,6 +76,11 @@ public class PlayerCollider : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if(collision.gameObject.layer == 11)
+        {
+            return;
+        }
+
         if(this.gameObject.layer != 9)
         {
             OnDamaged();
