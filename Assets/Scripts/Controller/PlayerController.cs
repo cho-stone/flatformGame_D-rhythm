@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static bool s_canPressKey = true; //골 플레그에 닿았을 때
+
     // x좌표 이동
     //이동
     float moveSpeed = 15;
@@ -89,6 +91,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!s_canPressKey)
+        {
+            return;
+        }
+
         if (!isHit)
         {
             Move();
